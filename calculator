@@ -1,0 +1,78 @@
+package com.example.johannespangrestu.calculator;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.view.View;
+
+public class MainActivity extends AppCompatActivity
+{
+    int x = 1, y = 1, value, grand_total = 0;
+    String total = "", sign  = "";
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public void OnClick (View v)
+    {
+        Button button = (Button) v;
+        String s = button.getText().toString();
+        EditText edit = (EditText)findViewById(R.id.editText);
+        total += s;
+        edit.setText(total);
+        if (x == 1)
+        {
+            grand_total = value = Integer.parseInt(total);
+        }
+        else
+            value = Integer.parseInt(total);
+        y = 1;
+    }
+
+    public void sign (View v)
+    {
+        Button button = (Button) v;
+        String s = button.getText().toString();
+        sign = s;
+        if (x != 1)
+        {
+            this.calculate();
+        }
+        x++;
+        total = "";
+    }
+
+    public void calculate ()
+    {
+        if (y < 2 || sign.equals("="))
+        {
+            if (sign.equals("+"))
+            {
+                grand_total += value;
+            }
+            else if (sign.equals("-"))
+            {
+                grand_total -= value;
+            }
+            else if (sign.equals("*"))
+            {
+                grand_total *= value;
+            }
+            else if (sign.equals("/"))
+            {
+                grand_total /= value;
+            }
+            else if (sign.equals("%"))
+            {
+                grand_total %= value;
+            }
+        }
+        y++;
+        EditText edit = (EditText)findViewById(R.id.editText);
+        String s = Integer.toString(grand_total);
+        edit.setText(s);
+    }
+}
